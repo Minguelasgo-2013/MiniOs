@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini OS Windows 95</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- PANTALLA DE LOGUEO (CONTRASEÑA: 1234) -->
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="window-title">
+                <span>Inicio de Sesión</span>
+                <span>X</span>
+            </div>
+            <div class="login-content">
+                <div class="user-avatar-box"></div>
+                <div class="login-form-group">
+                    <label>Usuario: <strong>Administrador</strong></label>
+                    <label for="password-input">Contraseña:</label>
+                    <input type="password" id="password-input">
+                    <button type="button" id="login-btn">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ESCRITORIO PRINCIPAL -->
+    <div id="desktop">
+        <!-- Icono con Carpeta CSS Puro -->
+        <div class="icon" id="folder-icon">
+            <div class="folder-css"></div>
+            <span>Mis Archivos</span>
+        </div>
+
+        <!-- Ventana del Explorador de Archivos (Oculta al inicio) -->
+        <div class="window" id="files-window">
+            <div class="window-title">
+                <span>Explorador de Archivos</span>
+                <span id="close-window-btn" style="cursor: pointer; padding: 0 4px; background: #c0c0c0; color: #000; border: 1px solid #fff;">X</span>
+            </div>
+            <div class="window-body">
+                <p>📂 Directorio: C:\Mis Archivos</p>
+                <hr style="margin: 10px 0;">
+                <p>• documento_secreto.txt</p>
+                <p>• notas_proyecto.log</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BARRA DE TAREAS -->
+    <div id="taskbar">
+        <button type="button">Inicio</button>
+        <div id="clock">00:00</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
