@@ -31,6 +31,7 @@ body, html {
     background: linear-gradient(90deg, #000080, #1084d0);
     color: white; padding: 3px 6px; font-weight: bold;
     display: flex; justify-content: space-between; margin-bottom: 15px;
+    align-items: center;
 }
 .login-content { display: flex; gap: 15px; color: #000; }
 .user-avatar-box {
@@ -61,7 +62,7 @@ button:active {
 /* --- ESCRITORIO --- */
 #desktop { width: 100%; height: calc(100% - 40px); position: relative; padding: 20px; }
 
-/* --- ICONO DE CARPETA EN CSS PURO (SIN EMOJIS / SIN SVG) --- */
+/* --- ICONO DE CARPETA EN CSS PURO --- */
 .icon { width: 80px; text-align: center; color: white; cursor: pointer; user-select: none; }
 .folder-css {
     position: relative;
@@ -72,7 +73,6 @@ button:active {
     margin: 0 auto 8px auto;
     border-radius: 0 2px 2px 2px;
 }
-/* Pestaña superior de la carpeta */
 .folder-css::before {
     content: "";
     position: absolute;
@@ -84,16 +84,56 @@ button:active {
     border-radius: 2px 2px 0 0;
 }
 
-/* --- VENTANA DE ARCHIVOS --- */
+/* --- VENTANA DEL ARCHIVADOR --- */
 .window {
-    position: absolute; top: 50px; left: 50px;
-    width: 400px; height: 250px;
+    position: absolute; top: 60px; left: 60px;
+    width: 450px; height: 300px;
     background-color: #c0c0c0;
     border-top: 2px solid #fff; border-left: 2px solid #fff;
     border-right: 2px solid #000; border-bottom: 2px solid #000;
-    display: none; flex-direction: column;
+    display: none; /* Oculta por defecto */
+    flex-direction: column;
+    padding: 3px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
 }
-.window-body { padding: 15px; flex-grow: 1; background: #fff; margin: 4px; border: 2px solid #808080; color: #000; }
+.close-btn {
+    cursor: pointer; 
+    font-size: 10px;
+    width: 16px; height: 14px;
+    background: #c0c0c0; color: #000; 
+    border-top: 1px solid #fff; border-left: 1px solid #fff;
+    border-right: 1px solid #000; border-bottom: 1px solid #000;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold;
+}
+.close-btn:active {
+    border-top: 1px solid #000; border-left: 1px solid #000;
+    border-right: 1px solid #fff; border-bottom: 1px solid #fff;
+}
+.window-body { 
+    padding: 10px; 
+    flex-grow: 1; 
+    background: #fff; 
+    border-top: 2px solid #808080; border-left: 2px solid #808080;
+    border-right: 2px solid #fff; border-bottom: 2px solid #fff;
+    color: #000;
+    overflow-y: auto;
+}
+.file-list {
+    list-style: none;
+    margin-top: 10px;
+}
+.file-item {
+    padding: 4px 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.file-item:hover {
+    background-color: #000080;
+    color: #fff;
+}
 
 /* --- BARRA DE TAREAS --- */
 #taskbar {
@@ -101,5 +141,5 @@ button:active {
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 5px; position: absolute; bottom: 0; left: 0;
 }
-#taskbar button { font-weight: bold; height: 28px; }
+#taskbar button { font-weight: bold; height: 28px; padding: 0 10px; }
 #clock { padding: 4px 10px; background-color: #c0c0c0; border-top: 2px solid #808080; border-left: 2px solid #808080; border-right: 2px solid #fff; border-bottom: 2px solid #fff; }
