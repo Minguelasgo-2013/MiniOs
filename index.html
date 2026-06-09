@@ -22,7 +22,6 @@ button { padding: 4px 15px; background: #c0c0c0; border-top: 2px solid #fff; bor
 <div id="desktop">
     <div class="icon" id="f-icon"><div class="folder-css"></div><span>Archivador</span></div>
     <div class="icon" id="n-icon"><div class="txt-css"></div><span>Notas.txt</span></div>
-    <!-- Al hacer clic aquí se disparará el script minguelsgo_nav.py externo -->
     <div class="icon" id="nav-icon"><div class="nav-css">M</div><span>Minguelsgo Nav</span></div>
 
     <div class="window" id="arch-win"><div class="window-title"><span>Minguelasgo Archivator</span><div class="close-btn" id="c-arch-btn">X</div></div><div class="window-body"><div>Ruta: C:\Archivador</div><hr style="margin: 8px 0; border: 0; border-top: 1px solid #808080;"><ul class="file-list"><li class="file-item"><div class="mini-folder-css"></div><span>Documentos_Secretos</span></li><li class="file-item"><div class="mini-folder-css"></div><span>Proyectos_Propios</span></li></ul></div></div>
@@ -39,9 +38,9 @@ document.getElementById('log-btn').addEventListener('click', login); document.ge
 document.getElementById('f-icon').addEventListener('click', () => document.getElementById('arch-win').style.display = 'flex'); document.getElementById('c-arch-btn').addEventListener('click', () => document.getElementById('arch-win').style.display = 'none');
 document.getElementById('n-icon').addEventListener('click', () => document.getElementById('notepad-win').style.display = 'flex'); document.getElementById('c-note-btn').addEventListener('click', () => document.getElementById('notepad-win').style.display = 'none');
 
-// ENLACE DIRECTO DESDE LA WEB PARA ABRIR LA APP DE PYTHON APARTE
+// ENLACE CORREGIDO CON CORS PASANDO POR CABECERAS HTTP
 document.getElementById('nav-icon').addEventListener('click', () => {
-    fetch('http://localhost:5000/open-nav', { method: 'POST', mode: 'no-cors' })
+    fetch('http://localhost:5000/open-nav', { method: 'POST', mode: 'cors' })
     .catch(err => alert("Asegúrate de tener ejecutándose el archivo 'minguelsgo_nav.py' en tu ordenador."));
 });
 </script></body></html>
