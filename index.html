@@ -7,35 +7,43 @@ input { width: 100%; padding: 3px; margin-bottom: 8px; border-top: 2px solid #80
 button { padding: 4px 15px; background: #c0c0c0; border-top: 2px solid #fff; border-left: 2px solid #fff; border-right: 2px solid #000; border-bottom: 2px solid #000; cursor: pointer; } button:active { border-top: 2px solid #000; border-left: 2px solid #000; border-right: 2px solid #fff; border-bottom: 2px solid #fff; } .login-form-group button { float: right; }
 #desktop { width: 100%; height: calc(100% - 40px); position: relative; padding: 20px; display: flex; flex-direction: column; gap: 20px; z-index: 1; } .icon { width: 80px; text-align: center; color: white; cursor: pointer; position: relative; z-index: 10; }
 .folder-css { position: relative; width: 36px; height: 26px; background: #f1df99; border: 1px solid #7f7f00; box-shadow: inset -1px -1px 0 #b59a42; margin: 0 auto 8px auto; border-radius: 0 2px 2px 2px; } .folder-css::before { content: ""; position: absolute; top: -5px; left: -1px; width: 14px; height: 5px; background: #f1df99; border: 1px solid #7f7f00; border-bottom: none; border-radius: 2px 2px 0 0; }
-/* --- ICONO DE ARCHIVO TXT EN CSS PURO (SIN EMOJIS) --- */
-.txt-css { position: relative; width: 24px; height: 32px; background: #fff; border: 1px solid #000; box-shadow: 1px 1px 0 #000; margin: 0 auto 6px auto; border-radius: 1px; overflow: hidden; }
-.txt-css::before { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 20px; background: repeating-linear-gradient(#fff, #fff 3px, #808080 3px, #808080 5px); }
+.txt-css { position: relative; width: 24px; height: 32px; background: #fff; border: 1px solid #000; box-shadow: 1px 1px 0 #000; margin: 0 auto 6px auto; border-radius: 1px; overflow: hidden; } .txt-css::before { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 20px; background: repeating-linear-gradient(#fff, #fff 3px, #808080 3px, #808080 5px); }
+/* --- ICONO DEL NAVEGADOR EN CSS PURO (Minguelsgo Nav) --- */
+.nav-css { position: relative; width: 30px; height: 30px; background: #000080; border: 2px solid #fff; box-shadow: 1px 1px 0 #000; margin: 0 auto 6px auto; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; font-size: 16px; font-style: italic; text-shadow: 1px 1px 0 #ff0000; }
 .window { position: absolute; top: 60px; left: 60px; width: 450px; height: 300px; background: #c0c0c0; border-top: 2px solid #fff; border-left: 2px solid #fff; border-right: 2px solid #000; border-bottom: 2px solid #000; display: none; flex-direction: column; padding: 3px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 20; }
 .close-btn { cursor: pointer; font-size: 11px; width: 16px; height: 14px; background: #c0c0c0; color: #000; border-top: 1px solid #fff; border-left: 1px solid #fff; border-right: 1px solid #000; border-bottom: 1px solid #000; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 .window-body { padding: 10px; flex-grow: 1; background: #fff; border-top: 2px solid #808080; border-left: 2px solid #808080; border-right: 2px solid #fff; border-bottom: 2px solid #fff; color: #000; overflow-y: auto; } .file-list { list-style: none; margin-top: 10px; } .file-item { padding: 6px; cursor: pointer; display: flex; align-items: center; gap: 10px; } .file-item:hover { background: #000080; color: #fff; }
 .mini-folder-css { position: relative; width: 18px; height: 13px; background: #f1df99; border: 1px solid #7f7f00; border-radius: 0 1px 1px 1px; flex-shrink: 0; } .mini-folder-css::before { content: ""; position: absolute; top: -3px; left: -1px; width: 8px; height: 3px; background: #f1df99; border: 1px solid #7f7f00; border-bottom: none; border-radius: 1px 1px 0 0; }
 #taskbar { width: 100%; height: 40px; background: #c0c0c0; border-top: 2px solid #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 5px; position: absolute; bottom: 0; left: 0; z-index: 50; } #taskbar button { font-weight: bold; height: 28px; padding: 0 10px; } #clock { padding: 4px 10px; background: #c0c0c0; border-top: 2px solid #808080; border-left: 2px solid #808080; border-right: 2px solid #fff; border-bottom: 2px solid #fff; color: #000; }
-#notepad-win { top: 110px; left: 140px; width: 420px; height: 280px; }
-.notepad-textarea { width: 100%; height: 100%; border: none; resize: none; outline: none; font-family: "Courier New", monospace; font-size: 13px; color: #000; background: #fff; user-select: text; padding: 5px; }
+#notepad-win { top: 110px; left: 140px; width: 420px; height: 280px; } .notepad-textarea { width: 100%; height: 100%; border: none; resize: none; outline: none; font-family: "Courier New", monospace; font-size: 13px; color: #000; background: #fff; user-select: text; padding: 5px; }
+/* --- ESTILOS INTERNOS DE MINGUELSGO NAV --- */
+#nav-win { top: 40px; left: 200px; width: 500px; height: 360px; } .search-bar-container { display: flex; gap: 5px; margin-bottom: 10px; }
+.search-results { font-family: "Times New Roman", serif; padding: 5px; user-select: text; } .search-results a { color: blue; text-decoration: underline; cursor: pointer; display: block; margin-top: 10px; font-size: 14px; }
 </style></head><body>
 
 <div id="login-screen"><div class="login-card"><div class="window-title"><span>Inicio de Sesión</span><span>X</span></div><div class="login-content"><div class="user-avatar-box"></div><div class="login-form-group"><label>Usuario: <strong>Administrador</strong></label><label for="pass-in">Contraseña:</label><input type="password" id="pass-in" autofocus><button type="button" id="log-btn">Aceptar</button></div></div></div></div>
 
 <div id="desktop">
-    <!-- Icono 1: El Archivador original -->
     <div class="icon" id="f-icon"><div class="folder-css"></div><span>Archivador</span></div>
-    
-    <!-- Icono 2: El Bloc de Notas como aplicación aparte en el Escritorio -->
     <div class="icon" id="n-icon"><div class="txt-css"></div><span>Notas.txt</span></div>
+    <!-- Tercer Icono: El nuevo Navegador Minguelsgo Nav -->
+    <div class="icon" id="nav-icon"><div class="nav-css">M</div><span>Minguelsgo Nav</span></div>
 
     <!-- Ventana del Archivador -->
-    <div class="window" id="arch-win"><div class="window-title"><span>Minguelasgo Archivator</span><div class="close-btn" id="c-arch-btn">X</div></div><div class="window-body"><div>Ruta: C:\Archivador</div><hr style="margin: 8px 0; border: 0; border-top: 1px solid #808080;"><ul class="file-list">
-    <li class="file-item"><div class="mini-folder-css"></div><span>Documentos_Secretos</span></li>
-    <li class="file-item"><div class="mini-folder-css"></div><span>Proyectos_Propios</span></li>
-    </ul></div></div>
+    <div class="window" id="arch-win"><div class="window-title"><span>Minguelasgo Archivator</span><div class="close-btn" id="c-arch-btn">X</div></div><div class="window-body"><div>Ruta: C:\Archivador</div><hr style="margin: 8px 0; border: 0; border-top: 1px solid #808080;"><ul class="file-list"><li class="file-item"><div class="mini-folder-css"></div><span>Documentos_Secretos</span></li><li class="file-item"><div class="mini-folder-css"></div><span>Proyectos_Propios</span></li></ul></div></div>
 
-    <!-- Ventana independiente del Bloc de Notas -->
-    <div class="window" id="notepad-win"><div class="window-title"><span>Bloc de notas - Notas.txt</span><div class="close-btn" id="c-note-btn">X</div></div><div class="window-body" style="padding:2px;"><textarea class="notepad-textarea" id="note-text" placeholder="Escribe tus notas aquí al estilo Windows 95..."></textarea></div></div>
+    <!-- Ventana del Bloc de Notas -->
+    <div class="window" id="notepad-win"><div class="window-title"><span>Bloc de notas - Notas.txt</span><div class="close-btn" id="c-note-btn">X</div></div><div class="window-body" style="padding:2px;"><textarea class="notepad-textarea" id="note-text" placeholder="Escribe tus notas aquí..."></textarea></div></div>
+
+    <!-- Ventana de Minguelsgo Nav (Google Retro) -->
+    <div class="window" id="nav-win"><div class="window-title"><span>Minguelsgo Nav - Buscador</span><div class="close-btn" id="c-nav-btn">X</div></div><div class="window-body">
+        <div style="text-align:center; font-family:'Times New Roman',serif; font-size:24px; font-weight:bold; color:#000080; margin-bottom:10px;">Minguelsgo!</div>
+        <div class="search-bar-container">
+            <input type="text" id="search-input" placeholder="Buscar en la red minguera..." style="margin-bottom:0;">
+            <button type="button" id="search-btn" style="padding:2px 10px;">Buscar</button>
+        </div>
+        <div class="search-results" id="nav-results">Escribe algo y pulsa Buscar para explorar la red de Minguelsgo.</div>
+    </div></div>
 </div>
 
 <div id="taskbar"><button type="button">Inicio</button><div id="clock">00:00</div></div>
@@ -44,8 +52,10 @@ button { padding: 4px 15px; background: #c0c0c0; border-top: 2px solid #fff; bor
 const runClock = () => { const c = document.getElementById('clock'); const n = new Date(); let h = n.getHours(), m = n.getMinutes(); c.innerText = `${h < 10 ? '0' + h : h}:${m < 10 ? '0' + m : m}`; }; runClock(); setInterval(runClock, 1000);
 const login = () => { if (document.getElementById('pass-in').value === "1234") { document.getElementById('login-screen').style.display = 'none'; } else { alert("Incorrecta"); document.getElementById('pass-in').value = ""; document.getElementById('pass-in').focus(); } };
 document.getElementById('log-btn').addEventListener('click', login); document.getElementById('pass-in').addEventListener('keypress', (e) => { if (e.key === 'Enter') login(); });
-// Control de apertura del Archivador
+
 document.getElementById('f-icon').addEventListener('click', () => document.getElementById('arch-win').style.display = 'flex'); document.getElementById('c-arch-btn').addEventListener('click', () => document.getElementById('arch-win').style.display = 'none');
-// Control de apertura independiente del Bloc de Notas desde su propio icono de escritorio
 document.getElementById('n-icon').addEventListener('click', () => document.getElementById('notepad-win').style.display = 'flex'); document.getElementById('c-note-btn').addEventListener('click', () => document.getElementById('notepad-win').style.display = 'none');
-</script></body></html>
+
+// Control del Navegador
+document.getElementById('nav-icon').addEventListener('click', () => document.getElementById('nav-win').style.display = 'flex'); document.getElementById('c-nav-btn').addEventListener('click', () => document.getElementById('nav-win').style.display = 'none');
+
