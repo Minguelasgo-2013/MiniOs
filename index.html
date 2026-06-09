@@ -15,37 +15,24 @@ button { padding: 4px 15px; background: #c0c0c0; border-top: 2px solid #fff; bor
 .mini-folder-css { position: relative; width: 18px; height: 13px; background: #f1df99; border: 1px solid #7f7f00; border-radius: 0 1px 1px 1px; flex-shrink: 0; } .mini-folder-css::before { content: ""; position: absolute; top: -3px; left: -1px; width: 8px; height: 3px; background: #f1df99; border: 1px solid #7f7f00; border-bottom: none; border-radius: 1px 1px 0 0; }
 #taskbar { width: 100%; height: 40px; background: #c0c0c0; border-top: 2px solid #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 5px; position: absolute; bottom: 0; left: 0; z-index: 50; } #taskbar button { font-weight: bold; height: 28px; padding: 0 10px; } #clock { padding: 4px 10px; background: #c0c0c0; border-top: 2px solid #808080; border-left: 2px solid #808080; border-right: 2px solid #fff; border-bottom: 2px solid #fff; color: #000; }
 #notepad-win { top: 110px; left: 140px; width: 420px; height: 280px; } .notepad-textarea { width: 100%; height: 100%; border: none; resize: none; outline: none; font-family: "Courier New", monospace; font-size: 13px; color: #000; background: #fff; user-select: text; padding: 5px; }
-#nav-win { top: 40px; left: 180px; width: 480px; height: 380px; } .nav-sec { margin-bottom: 15px; user-select: text; } .nav-sec h2 { font-size: 13px; margin-bottom: 8px; border-bottom: 2px dashed #808080; padding-bottom: 2px; color: #555; }
-.n-card { background: #f0f0f0; border: 2px solid #808080; padding: 10px; margin-bottom: 8px; border-radius: 4px; } .n-card h3 { font-size: 12px; color: #000080; margin-bottom: 3px; } .n-card p { margin-bottom: 6px; color: #333; font-size: 11px; } .n-card button { padding: 3px 10px; font-size: 11px; font-weight: bold; float: none; }
 </style></head><body>
-
 <div id="login-screen"><div class="login-card"><div class="window-title"><span>Inicio de Sesión</span><span>X</span></div><div class="login-content"><div class="user-avatar-box"></div><div class="login-form-group"><label>Usuario: <strong>Administrador</strong></label><label for="pass-in">Contraseña:</label><input type="password" id="pass-in" autofocus><button type="button" id="log-btn">Aceptar</button></div></div></div></div>
-
 <div id="desktop">
     <div class="icon" id="f-icon"><div class="folder-css"></div><span>Archivador</span></div>
     <div class="icon" id="n-icon"><div class="txt-css"></div><span>Notas.txt</span></div>
+    <!-- Redirección directa e independiente al nuevo archivo de la app -->
     <div class="icon" id="nav-icon"><div class="nav-css">M</div><span>Minguelsgo Nav</span></div>
 
     <div class="window" id="arch-win"><div class="window-title"><span>Minguelasgo Archivator</span><div class="close-btn" id="c-arch-btn">X</div></div><div class="window-body"><div>Ruta: C:\Archivador</div><hr style="margin: 8px 0; border: 0; border-top: 1px solid #808080;"><ul class="file-list"><li class="file-item"><div class="mini-folder-css"></div><span>Documentos_Secretos</span></li><li class="file-item"><div class="mini-folder-css"></div><span>Proyectos_Propios</span></li></ul></div></div>
     <div class="window" id="notepad-win"><div class="window-title"><span>Bloc de notas - Notas.txt</span><div class="close-btn" id="c-note-btn">X</div></div><div class="window-body" style="padding:2px;"><textarea class="notepad-textarea" id="note-text" placeholder="Escribe tus notas aquí..."></textarea></div></div>
-
-    <!-- MINGUELSGO NAV TRADUCIDO COMPLETAMENTE A LÍNEAS GORDAS WEB (CON TARJETAS) -->
-    <div class="window" id="nav-win"><div class="window-title"><span>Minguelsgo Nav - Portal Oficial</span><div class="close-btn" id="c-nav-btn">X</div></div><div class="window-body">
-        <div class="nav-sec"><h2>📂 PORTALES OFICIALES MINGUEROS</h2>
-            <div class="n-card"><h3>GITHUB REPOSITORY</h3><p>Accede de forma directa a tu repositorio donde guardas este Mini OS 95.</p><button type="button" onclick="window.open('https://github.com','_blank')">ABRIR ENLACE</button></div>
-            <div class="n-card"><h3>MINGUELASGO GAMES PORTAL</h3><p>Enlace directo al sitio web original con todo el catálogo de software y plataformas.</p><button type="button" onclick="window.open('https://github.io')">ABRIR ENLACE</button></div>
-        </div>
-        <div class="nav-sec"><h2>🔍 MOTORES DE BÚSQUEDA SECUNDARIOS</h2>
-            <div class="n-card"><h3>GOOGLE WEB</h3><p>Si necesitas salir de la red interna de Minguelsgo, usa el buscador global de Google.</p><button type="button" onclick="window.open('https://google.com','_blank')">ABRIR ENLACE</button></div>
-        </div>
-    </div></div>
 </div>
-
 <div id="taskbar"><button type="button">Inicio</button><div id="clock">00:00</div></div>
-
 <script>
 const runClock = () => { const c = document.getElementById('clock'); const n = new Date(); let h = n.getHours(), m = n.getMinutes(); c.innerText = `${h < 10 ? '0' + h : h}:${m < 10 ? '0' + m : m}`; }; runClock(); setInterval(runClock, 1000);
 const login = () => { if (document.getElementById('pass-in').value === "1234") { document.getElementById('login-screen').style.display = 'none'; } else { alert("Incorrecta"); document.getElementById('pass-in').value = ""; document.getElementById('pass-in').focus(); } };
 document.getElementById('log-btn').addEventListener('click', login); document.getElementById('pass-in').addEventListener('keypress', (e) => { if (e.key === 'Enter') login(); });
 document.getElementById('f-icon').addEventListener('click', () => document.getElementById('arch-win').style.display = 'flex'); document.getElementById('c-arch-btn').addEventListener('click', () => document.getElementById('arch-win').style.display = 'none');
-document.getElementById('n-icon').addEventListener('click', () => document.getElementById('notepad-win').style.display = 'flex'); document.getElementById('c-note-btn').addEventListener('click', () => document.getElementById('notepad-win').style.display = 'none');document.getElementById('nav-icon').addEventListener('click', () => document.getElementById('nav-win').style.display = 'flex'); document.getElementById('c-nav-btn').addEventListener('click', () => document.getElementById('nav-win').style.display = 'none');
+document.getElementById('n-icon').addEventListener('click', () => document.getElementById('notepad-win').style.display = 'flex'); document.getElementById('c-note-btn').addEventListener('click', () => document.getElementById('notepad-win').style.display = 'none');
+// ENLACE LIMPIO: Abre minguelsgo_nav.html en una pestaña nueva separada para evitar bugs de login
+document.getElementById('nav-icon').addEventListener('click', () => window.open('minguelsgo_nav.html', '_blank'));
+</script></body></html>
