@@ -5,15 +5,14 @@
 .avatar { width: 45px; height: 45px; background: #808080; border-top: 2px solid #000; border-left: 2px solid #000; border-right: 2px solid #fff; border-bottom: 2px solid #fff; } .form-group { flex-grow: 1; } .form-group label { display: block; margin-bottom: 5px; color: #000; }
 input { width: 100%; padding: 3px; margin-bottom: 8px; border-top: 2px solid #808080; border-left: 2px solid #808080; border-right: 2px solid #fff; border-bottom: 2px solid #fff; background: #fff; outline: none; color: #000; }
 button { padding: 4px 15px; background: #c0c0c0; border-top: 2px solid #fff; border-left: 2px solid #fff; border-right: 2px solid #000; border-bottom: 2px solid #000; cursor: pointer; color: #000; font-weight: bold; } button:active { border-top: 2px solid #000; border-left: 2px solid #000; border-right: 2px solid #fff; border-bottom: 2px solid #fff; } .form-group button { float: right; }
-#nav-app { width: 480px; height: 420px; background: #c0c0c0; border-top: 2px solid #fff; border-left: 2px solid #fff; border-right: 2px solid #000; border-bottom: 2px solid #000; display: flex; flex-direction: column; padding: 3px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+#nav-app { width: 100%; height: 100%; background: #c0c0c0; display: flex; flex-direction: column; padding: 3px; }
 .win-body { padding: 10px; flex-grow: 1; background: #fff; border-top: 2px solid #808080; border-left: 2px solid #808080; border-right: 2px solid #fff; border-bottom: 2px solid #fff; color: #000; overflow-y: auto; } .sec { margin-bottom: 15px; user-select: text; } .sec h2 { font-size: 13px; margin-bottom: 8px; border-bottom: 2px dashed #808080; padding-bottom: 2px; color: #555; }
 .n-card { background: #f0f0f0; border: 2px solid #808080; padding: 10px; margin-bottom: 8px; border-radius: 4px; } .n-card h3 { font-size: 12px; color: #000080; margin-bottom: 3px; } .n-card p { margin-bottom: 6px; color: #333; font-size: 11px; } .n-card button { padding: 3px 10px; font-size: 11px; font-weight: bold; float: none; }
 </style></head><body>
-<div id="log-scr"><div class="card"><div class="title"><span>Minguelsgo Nav - Login</span><span>X</span></div><div class="content"><div class="avatar"></div><div class="form-group"><label>Acceso al Navegador</label><label for="p-in">Contraseña:</label><input type="password" id="p-in" autofocus><button type="button" id="go-btn">Entrar</button></div></div></div></div>
-<div id="nav-app"><div class="title"><span>Minguelsgo Nav - Portal Oficial</span></div><div class="win-body">
+<div id="log-scr"><div class="card"><div class="title"><span>Minguelsgo Nav - Login</span></div><div class="content"><div class="avatar"></div><div class="form-group"><label>Acceso al Navegador</label><label for="p-in">Contraseña:</label><input type="password" id="p-in" autofocus><button type="button" id="go-btn">Entrar</button></div></div></div></div>
+<div id="nav-app"><div class="win-body">
     <div class="sec"><h2>📂 PORTALES OFICIALES MINGUEROS</h2>
         <div class="n-card"><h3>GITHUB REPOSITORY</h3><p>Accede de forma directa a tu repositorio donde guardas este Mini OS 95.</p><button type="button" onclick="window.open('https://github.com','_blank')">ABRIR ENLACE</button></div>
-        <div class="n-card"><h3>MINGUELASGO GAMES PORTAL</h3><p>Enlace directo al sitio web original con todo el catálogo de software y plataformas.</p><button type="button" onclick="window.open('https://github.io')">ABRIR ENLACE</button></div>
     </div>
     <div class="sec"><h2>🔍 MOTORES DE BÚSQUEDA SECUNDARIOS</h2>
         <div class="n-card"><h3>GOOGLE WEB</h3><p>Si necesitas salir de la red interna de Minguelsgo, usa el buscador global de Google.</p><button type="button" onclick="window.open('https://google.com','_blank')">ABRIR ENLACE</button></div>
@@ -23,4 +22,3 @@ button { padding: 4px 15px; background: #c0c0c0; border-top: 2px solid #fff; bor
 const loginNav = () => { if (document.getElementById('p-in').value === "1234") { document.getElementById('log-scr').style.display = 'none'; } else { alert("Incorrecta"); document.getElementById('p-in').value = ""; document.getElementById('p-in').focus(); } };
 document.getElementById('go-btn').addEventListener('click', loginNav); document.getElementById('p-in').addEventListener('keypress', (e) => { if (e.key === 'Enter') loginNav(); });
 </script></body></html>
-s
