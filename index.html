@@ -341,6 +341,7 @@
         <div class="icon" id="nav-icon"><div class="nav-css">M</div><span>Minguelsgo Nav</span></div>
         <div class="icon" id="paint-icon"><div class="txt-css" style="background:#ff00f0; border-radius:50%"></div><span>Paint</span></div>
         <div class="icon" id="game-icon"><div class="nav-css" style="background:#ff3333; font-style:normal; text-shadow:none;">🎮</div><span>Juego</span></div>
+        <div class="icon" id="terminal-icon" onclick="openWin('term-win')"><div class="nav-css" style="background:#000000; font-family:monospace; font-style:normal; font-size:11px; text-shadow:none; color:#00ff00; display:flex; align-items:center; justify-content:center; border:1px solid #c0c0c0;">&gt;_</div><span>Terminal</span></div>
         <!-- Ventana: Archivador -->
         <div class="window" id="arch-win">
             <div class="window-title">
@@ -418,6 +419,18 @@
             <div class="window-body" style="padding:0;">
                 <iframe class="iframe-nav" src="LosMins.html"></iframe>
             </div>
+        </div>
+        <!-- Ventana: Terminal -->
+        <div class="window" id="term-win" style="width: 520px; height: 340px; display: none;">
+            <div class="window-title">
+                <span>Terminal de Comandos MS-DOS</span>
+                <div class="win-controls">
+                    <div class="win-btn" onclick="minimizeWin('term-win')">_</div>
+                    <div class="win-btn" onclick="maximizeWin('term-win')">🗖</div>
+                    <div class="win-btn" onclick="closeWin('term-win')">X</div>
+                </div>
+            </div>
+            <iframe src="terminal.html" style="width: 100%; height: calc(100% - 22px); border: none; background: #0c0c0c;"></iframe>
         </div>
     </div> <!-- Cierre de #desktop -->
     <!-- Barra de Tareas -->
