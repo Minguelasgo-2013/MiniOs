@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Linux Realista</title>
+    <style>
+        body { background-color: #0c0c0c; color: #00ff00; font-family: 'Courier New', Courier, monospace; font-size: 16px; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; height: 100vh; box-sizing: border-box; overflow: hidden; }
+        .terminal-window { width: 100%; max-width: 900px; height: 80vh; background-color: #151515; border: 1px solid #333; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); display: flex; flex-direction: column; }
+        .terminal-header { background-color: #222; padding: 10px; display: flex; align-items: center; border-bottom: 1px solid #333; border-top-left-radius: 5px; border-top-right-radius: 5px; }
+        .buttons { display: flex; gap: 8px; }
+        .button { width: 12px; height: 12px; border-radius: 50%; }
+        .close { background-color: #ff5f56; }
+        .minimize { background-color: #ffbd2e; }
+        .maximize { background-color: #27c93f; }
+        .title { color: #bbb; margin: 0 auto; font-size: 14px; font-family: sans-serif; }
+        .terminal-body { flex: 1; padding: 15px; overflow-y: auto; white-space: pre-wrap; line-height: 1.4; }
+        .input-line { display: flex; align-items: center; margin-top: 5px; padding: 0 15px 15px 15px; }
+        .prompt { color: #5af78e; font-weight: bold; margin-right: 10px; white-space: nowrap; }
+        .path { color: #57c7ff; }
+        .input-container { position: relative; flex: 1; display: flex; align-items: center; }
+        #cmd-input { background: transparent; border: none; color: transparent; font-family: inherit; font-size: inherit; outline: none; width: 100%; position: absolute; left: 0; top: 0; z-index: 2; caret-color: transparent; }
+        #visual-text { color: #f1f1f1; white-space: pre-wrap; z-index: 1; }
+        .cursor { display: inline-block; width: 10px; height: 18px; background-color: #f1f1f1; animation: blink 0.8s infinite; margin-left: 1px; vertical-align: middle; }
+        @keyframes blink { 0%, 49% { background-color: #f1f1f1; } 50%, 100% { background-color: transparent; } }
+        .error { color: #ff5555; }
+        .success { color: #5af78e; }
+        .info { color: #9aedfe; }
+    </style>
+</head>
+<body>
+<div class="terminal-window" onclick="focusInput()">
+    <div class="terminal-header"><div class="buttons"><div class="button close"></div><div class="button minimize"></div><div class="button maximize"></div></div><div class="title">guest@linux-terminal:~</div></div>
+    <div class="terminal-body" id="output">
+        <div>Bienvenido a la Terminal Interactiva v2.0</div>
+        <div>Escribe <span class="info">help</span> para ver los comandos disponibles.</div><br>
+    </div>
+    <div class="input-line">
+        <span class="prompt">guest@sandbox:<span class="path">~</span>$</span>
+        <div class="input-container">
+            <span id="visual-text"></span><span class="cursor" id="terminal-cursor"></span>
+            <input type="text" id="cmd-input" autofocus autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </div>
+    </div>
+</div>
+<script>
+    const output = document.getElementById('output');
+    const cmdInput = document.getElementById('cmd-input');
+    const visualText = document.getElementById('visual-text');
+    const terminalBody = document.querySelector('.terminal-body');
+
+    const fileSystem = {
+        'readme.txt': 'Simulación de terminal ultra realista hecha con HTML, CSS y JS.\n¡Puedes ejecutar códigos aquí!',
+        'contacto.txt': 'Email: contacto@ejemplo.com\nGithub: ://github.com',
+        'proyectos.txt': '- Terminal interactiva [Completado]\n- Bot de IA Inteligente [En desarrollo]'
+    };
+
+    let commandHistory = [];
+    let historyIndex = -1;
+
+    cmdInput.addEventListener('input', () => { visualText.textContent = cmdInput.value; });
+    function focusInput() { cmdInput.focus(); }
+
+    cmdInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            const command = cmdInput.value.trim();
+            if (command !== '') { commandHistory.push(command); historyIndex = commandHistory.length; }
+            printLine(`guest@sandbox:~$&nbsp;${command}`, '');
+            executeCommand(command);
+            cmdInput.value = ''; visualText.textContent = '';
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        } 
+        else if (e.key === 'ArrowUp' && commandHistory.length > 0 && historyIndex > 0) {
+            historyIndex--; cmdInput.value = commandHistory[historyIndex]; visualText.textContent = cmdInput.value; e.preventDefault();
+        } 
+        else if (e.key === 'ArrowDown') {
+            if (historyIndex < commandHistory.length - 1) { historyIndex++; cmdInput.value = commandHistory[historyIndex]; visualText.textContent = cmdInput.value; }
+            else { historyIndex = commandHistory.length; cmdInput.value = ''; visualText.textContent = ''; }
+            e.preventDefault();
+        }
+    });
+
+    function printLine(text, className = '') {
+        const div = document.createElement('div'); div.innerHTML = text;
+        if (className) div.classList.add(className); output.appendChild(div);
+    }
+
+    function executeCommand(cmdStr) {
+        const parts = cmdStr.split(' '); const command = parts[0].toLowerCase(); const arg = parts.slice(1).join(' ');
+        switch (command) {
+            case '': break;
+            case 'help':
+                printLine('Comandos disponibles:', 'info');
+                printLine('  help      - Muestra este menú.');
+                printLine('  ls        - Lista archivos del directorio.');
+                printLine('  cat [doc] - Lee un archivo (Ej: cat readme.txt).');
+                printLine('  clear     - Limpia la pantalla.');
+                printLine('  whoami    - Muestra usuario actual.');
+                printLine('  date      - Muestra fecha y hora.');
+                printLine('  uname     - Información del sistema.');
+                printLine('  echo [txt]- Repite el texto.');
+                break;
+            case 'ls': printLine(Object.keys(fileSystem).join('    '), 'success'); break;
+            case 'cat':
+                if (!arg) printLine('Error: Especifica archivo. Ej: cat readme.txt', 'error');
+                else if (fileSystem[arg]) printLine(fileSystem[arg]);
+                else printLine(`cat: ${arg}: No se encontró el archivo.`, 'error');
+                break;
+            case 'clear': output.innerHTML = ''; break;
+            case 'whoami': printLine('guest_user_sandbox'); break;
+            case 'date': printLine(new Date().toString()); break;
+            case 'uname': printLine('Linux sandbox-env 5.4.0-96-generic x86_64 GNU/Linux'); break;
+            case 'echo': printLine(arg); break;
+            default: printLine(`bash: ${command}: comando no encontrado. Escribe 'help'.`, 'error');
+        }
+    }
+</script>
+</body>
+</html>
