@@ -336,13 +336,13 @@
     </div>
     <!-- Escritorio -->
     <div id="desktop">
-        <div class="icon" id="users-icon"><div class="nav-css" style="background:#808080; font-family:sans-serif; font-style:normal; font-size:14px; text-shadow:none; color:#fff; display:flex; align-items:center; justify-content:center; border:2px dashed #000080;">👤</div><span>Usuarios</span></div>
         <div class="icon" id="f-icon"><div class="folder-css"></div><span>Archivador</span></div>
         <div class="icon" id="n-icon"><div class="txt-css"></div><span>Notas.txt</span></div>
         <div class="icon" id="nav-icon"><div class="nav-css">M</div><span>Minguelsgo Nav</span></div>
         <div class="icon" id="paint-icon"><div class="txt-css" style="background:#ff00f0; border-radius:50%"></div><span>Paint</span></div>
         <div class="icon" id="game-icon"><div class="nav-css" style="background:#ff3333; font-style:normal; text-shadow:none;">🎮</div><span>Juego</span></div>
         <div class="icon" id="terminal-icon" onclick="openWin('term-win')"><div class="nav-css" style="background:#000000; font-family:monospace; font-style:normal; font-size:11px; text-shadow:none; color:#00ff00; display:flex; align-items:center; justify-content:center; border:1px solid #c0c0c0;">&gt;_</div><span>Terminal</span></div>
+        <div class="icon" id="users-icon"><div class="nav-css" style="background:#808080; font-family:sans-serif; font-style:normal; font-size:14px; text-shadow:none; color:#fff; display:flex; align-items:center; justify-content:center; border:2px dashed #000080;">👤</div><span>Usuarios</span></div>
         <!-- Ventana: Archivador -->
         <div class="window" id="arch-win">
             <div class="window-title">
@@ -435,7 +435,7 @@
         </div>
     </div>
         <!-- Ventana: Control de Usuarios -->
-        <div class="window" id="users-win" style="top: 150px; left: 180px; width: 350px; height: 240px; display: none;">
+           <div class="window" id="users-win" style="top: 150px; left: 180px; width: 350px; height: 240px; display: none;">
             <div class="window-title">
                 <span>Panel de Control - Cuentas</span>
                 <div class="win-controls">
@@ -444,7 +444,7 @@
                     <div class="win-btn" onclick="closeWin('users-win')">X</div>
                 </div>
             </div>
-            <iframe src="ControlUsuarios.html" style="width: 100%; height: calc(100% - 22px); border: none; background: #c0c0c0;"></iframe>
+           <iframe src="ControlUsuarios.html" style="width: 100%; height: calc(100% - 22px); border: none; background: #c0c0c0;"></iframe>
         </div>
     </div>
     <!-- Cierre de #desktop -->
