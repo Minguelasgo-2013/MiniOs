@@ -1,172 +1,502 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini OS 95</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: "Arial", sans-serif; 
+            font-size: 12px; 
+            user-select: none; 
+        } 
+        body, html { 
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+            background-color: #008080; 
+            position: relative; 
         }
-        body {
-            background: #008080;
-            font-family: sans-serif;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
+        #login-screen { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: #008080; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 999; 
+        } 
+        .login-card { 
+            background: #c0c0c0; 
+            border-top: 2px solid #fff; 
+            border-left: 2px solid #fff; 
+            border-right: 2px solid #000; 
+            border-bottom: 2px solid #000; 
+            padding: 15px; 
+            width: 320px; 
         }
-        .desktop {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-content: flex-start;
-            flex-wrap: wrap;
-            height: calc(100vh - 40px);
+        .window-title { 
+            background: linear-gradient(90deg, #000080, #1084d0); 
+            color: white; 
+            padding: 3px 6px; 
+            font-weight: bold; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            cursor: move; 
+        } 
+        .login-content { 
+            display: flex; 
+            gap: 15px; 
+            color: #000; 
+        } 
+        .user-avatar-box { 
+            width: 45px; 
+            height: 45px; 
+            background: #808080; 
+            border-top: 2px solid #000; 
+            border-left: 2px solid #000; 
+            border-right: 2px solid #fff; 
+            border-bottom: 2px solid #fff; 
+        } 
+        .login-form-group { 
+            flex-grow: 1; 
+        } 
+        label { 
+            display: block; 
+            margin-bottom: 5px; 
         }
-        .icon {
-            width: 80px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            cursor: pointer;
-            color: #fff;
-            font-size: 12px;
-            text-shadow: 1px 1px 1px #000;
+        input { 
+            width: 100%; 
+            padding: 3px; 
+            margin-bottom: 8px; 
+            border-top: 2px solid #808080; 
+            border-left: 2px solid #808080; 
+            border-right: 2px solid #fff; 
+            border-bottom: 2px solid #fff; 
+            background: #fff; 
+            outline: none; 
+            color: #000; 
+        } 
+        button { 
+            padding: 4px 15px; 
+            background: #c0c0c0; 
+            border-top: 2px solid #fff; 
+            border-left: 2px solid #fff; 
+            border-right: 2px solid #000; 
+            border-bottom: 2px solid #000; 
+            cursor: pointer; 
+            color: #000; 
+        } 
+        button:active { 
+            border-top: 2px solid #000; 
+            border-left: 2px solid #000; 
+            border-right: 2px solid #fff; 
+            border-bottom: 2px solid #fff; 
+        } 
+        .login-form-group button { 
+            float: right; 
         }
-        .icon img, .icon .folder-css, .icon .nav-css {
-            width: 32px;
-            height: 32px;
-            margin-bottom: 5px;
+        #desktop { 
+            width: 100%; 
+            height: calc(100% - 40px); 
+            position: relative; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+            z-index: 1; 
+        } 
+        .icon { 
+            width: 80px; 
+            text-align: center; 
+            color: white; 
+            cursor: pointer; 
+            position: relative; 
+            z-index: 10; 
+        } 
+        .folder-css { 
+            position: relative; 
+            width: 36px; 
+            height: 26px; 
+            background: #f1df99; 
+            border: 1px solid #7f7f00; 
+            box-shadow: inset -1px -1px 0 #b59a42; 
+            margin: 0 auto 8px auto; 
+            border-radius: 0 2px 2px 2px; 
+        } 
+        .folder-css::before { 
+            content: ""; 
+            position: absolute; 
+            top: -5px; 
+            left: -1px; 
+            width: 14px; 
+            height: 5px; 
+            background: #f1df99; 
+            border: 1px solid #7f7f00; 
+            border-bottom: none; 
+            border-radius: 2px 2px 0 0; 
         }
-        .folder-css {
-            background: #ffd700;
-            border-radius: 2px;
-            border: 1px solid #b8860b;
+        .txt-css { 
+            position: relative; 
+            width: 24px; 
+            height: 32px; 
+            background: #fff; 
+            border: 1px solid #000; 
+            box-shadow: 1px 1px 0 #000; 
+            margin: 0 auto 6px auto; 
+            border-radius: 1px; 
+            overflow: hidden; 
+        } 
+        .txt-css::before { 
+            content: ""; 
+            position: absolute; 
+            top: 3px; 
+            left: 3px; 
+            width: 16px; 
+            height: 20px; 
+            background: repeating-linear-gradient(#fff, #fff 3px, #808080 3px, #808080 5px); 
+        } 
+        .nav-css { 
+            position: relative; 
+            width: 30px; 
+            height: 30px; 
+            background: #000080; 
+            border: 2px solid #fff; 
+            box-shadow: 1px 1px 0 #000; 
+            margin: 0 auto 6px auto; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: bold; 
+            color: #fff; 
+            font-size: 16px; 
+            font-style: italic; 
+            text-shadow: 1px 1px 0 #ff0000; 
         }
-        .window {
-            background: #c0c0c0;
-            border-top: 2px solid #fff;
-            border-left: 2px solid #fff;
-            border-right: 2px solid #000;
-            border-bottom: 2px solid #000;
-            box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
-            z-index: 10;
+        .window { 
+            position: absolute; 
+            background: #c0c0c0; 
+            border-top: 2px solid #fff; 
+            border-left: 2px solid #fff; 
+            border-right: 2px solid #000; 
+            border-bottom: 2px solid #000; 
+            display: none; 
+            flex-direction: column; 
+            padding: 3px; 
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3); 
+            z-index: 20; 
+        } 
+        .win-controls { 
+            display: flex; 
+            gap: 2px; 
+        } 
+        .win-btn { 
+            cursor: pointer; 
+            font-size: 9px; 
+            width: 16px; 
+            height: 14px; 
+            background: #c0c0c0; 
+            color: #000; 
+            border-top: 1px solid #fff; 
+            border-left: 1px solid #fff; 
+            border-right: 1px solid #000; 
+            border-bottom: 1px solid #000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: bold; 
         }
-        .window-title {
-            background: #000080;
-            color: #fff;
-            padding: 4px 8px;
-            font-weight: bold;
-            font-size: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .window-body { 
+            padding: 10px; 
+            flex-grow: 1; 
+            background: #fff; 
+            border-top: 2px solid #808080; 
+            border-left: 2px solid #808080; 
+            border-right: 2px solid #fff; 
+            border-bottom: 2px solid #fff; 
+            color: #000; 
+            overflow-y: auto; 
+        } 
+        .file-list { 
+            list-style: none; 
+            margin-top: 10px; 
+        } 
+        .file-item { 
+            padding: 6px; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        } 
+        .file-item:hover { 
+            background: #000080; 
+            color: #fff; 
+        } 
+        .mini-folder-css { 
+            position: relative; 
+            width: 18px; 
+            height: 13px; 
+            background: #f1df99; 
+            border: 1px solid #7f7f00; 
+            border-radius: 0 1px 1px 1px; 
+            flex-shrink: 0; 
+        } 
+        .mini-folder-css::before { 
+            content: ""; 
+            position: absolute; 
+            top: -3px; 
+            left: -1px; 
+            width: 8px; 
+            height: 3px; 
+            background: #f1df99; 
+            border: 1px solid #7f7f00; 
+            border-bottom: none; 
+            border-radius: 1px 1px 0 0; 
         }
-        .win-controls {
-            display: flex;
-            gap: 4px;
+        #taskbar { 
+            width: 100%; 
+            height: 40px; 
+            background: #c0c0c0; 
+            border-top: 2px solid #fff; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 5px; 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            z-index: 50; 
+        } 
+        #taskbar button { 
+            font-weight: bold; 
+            height: 28px; 
+            padding: 0 10px; 
+        } 
+        #clock { 
+            padding: 4px 10px; 
+            background: #c0c0c0; 
+            border-top: 2px solid #808080; 
+            border-left: 2px solid #808080; 
+            border-right: 2px solid #fff; 
+            border-bottom: 2px solid #fff; 
+            color: #000; 
         }
-        .win-btn {
-            background: #c0c0c0;
-            color: #000;
-            border-top: 1px solid #fff;
-            border-left: 1px solid #fff;
-            border-right: 1px solid #000;
-            border-bottom: 1px solid #000;
-            width: 16px;
-            height: 16px;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+        #arch-win { top: 60px; left: 60px; width: 450px; height: 300px; }
+        #notepad-win { top: 110px; left: 140px; width: 420px; height: 280px; }
+        .notepad-textarea { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            resize: none; 
+            outline: none; 
+            font-family: "Courier New", monospace; 
+            font-size: 13px; 
+            color: #000; 
+            background: #fff; 
+            user-select: text; 
+            padding: 5px; 
         }
-        .win-btn:active {
-            border-top: 1px solid #000;
-            border-left: 1px solid #000;
-            border-right: 1px solid #fff;
-            border-bottom: 1px solid #fff;
-        }
+        #m-nav-win { top: 40px; left: 180px; width: 500px; height: 460px; }
+        .iframe-nav { width: 100%; height: 100%; border: none; background: #fff; }
+        .window.maximized { 
+            top: 0 !important; 
+            left: 0 !important; 
+            width: 100% !important; 
+            height: calc(100vh - 40px) !important; 
+        } 
+        .iframe-container { width: 100%; height: 100%; position: relative; }
+        .iframe-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; }
+        /* Posiciones fijas para Paint y Juego */
+        #paint-win { top: 130px; left: 100px; width: 500px; height: 350px; }
+        #game-win { top: 80px; left: 200px; width: 520px; height: 380px; }
     </style>
 </head>
 <body>
-
-<div class="desktop">
-    <!-- Icono: Archivador -->
-    <div class="icon" id="f-icon" onclick="openWin('archivador-win')">
-        <div class="folder-css"></div>
-        <span>Archivador</span>
-    </div>
-
-    <!-- Icono: Minguelsgo Nav -->
-    <div class="icon" id="nav-icon" onclick="openWin('nav-win')">
-        <div class="nav-css" style="background:#000080; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; border-radius:4px;">M</div>
-        <span>Minguelsgo Nav</span>
-    </div>
-
-    <!-- Icono: Calculadora -->
-    <div class="icon" id="calc-icon" onclick="openWin('calc-win')">
-        <div class="nav-css" style="background:#c0c0c0; color:#000; display:flex; align-items:center; justify-content:center; border:2px solid #000080; border-radius:4px; font-weight:bold;">+/-</div>
-        <span>Calculadora</span>
-    </div>
-
-    <!-- Icono: Terminal de Comandos -->
-    <div class="icon" id="cmd-icon" onclick="openWin('cmd-win')">
-        <div class="nav-css" style="background:#000; color:#00ff00; display:flex; align-items:center; justify-content:center; border:1px solid #fff; font-family:monospace; font-size:11px; font-weight:bold;">&gt;_</div>
-        <span>Terminal</span>
-    </div>
-
-    <!-- Ventana Inalámbrica: Calculadora -->
-    <div class="window" id="calc-win" style="position: absolute; top: 140px; left: 220px; width: 260px; height: 320px; display: none;">
-        <div class="window-title">
-            <span>Calculadora</span>
-            <div class="win-controls">
-                <div class="win-btn" onclick="closeWin('calc-win')">X</div>
+    <!-- Pantalla de Login -->
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="window-title"><span>Inicio de Sesión</span></div>
+            <div class="login-content">
+                <div class="user-avatar-box"></div>
+                <div class="login-form-group">
+                    <label>Usuario: <strong>Usuario</strong></label>
+                    <label for="pass-in">Contraseña:</label>
+                    <input type="password" id="pass-in" value="1234" autofocus>
+                    <button type="button" id="log-btn">Aceptar</button>
+                </div>
             </div>
         </div>
-        <iframe src="calc.html" style="width: 100%; height: calc(100% - 22px); border: none; background: #c0c0c0;"></iframe>
     </div>
-
-    <!-- Ventana Inalámbrica: Terminal -->
-    <div class="window" id="cmd-win" style="position: absolute; top: 80px; left: 100px; width: 650px; height: 420px; display: none;">
-        <div class="window-title">
-            <span>Terminal de Comandos MS-DOS</span>
-            <div class="win-controls">
-                <div class="win-btn" onclick="closeWin('cmd-win')">X</div>
+    <!-- Escritorio -->
+    <div id="desktop">
+        <div class="icon" id="f-icon"><div class="folder-css"></div><span>Archivador</span></div>
+        <div class="icon" id="n-icon"><div class="txt-css"></div><span>Notas.txt</span></div>
+        <div class="icon" id="nav-icon"><div class="nav-css">M</div><span>Minguelsgo Nav</span></div>
+        <div class="icon" id="paint-icon"><div class="txt-css" style="background:#ff00f0; border-radius:50%"></div><span>Paint</span></div>
+        <div class="icon" id="game-icon"><div class="nav-css" style="background:#ff3333; font-style:normal; text-shadow:none;">🎮</div><span>Juego</span></div>
+        <div class="icon" id="terminal-icon"><div class="nav-css" style="background:#000000; font-family:monospace; font-style:normal; font-size:11px; text-shadow:none; color:#00ff00; display:flex; align-items:center; justify-content:center; border:1px solid #c0c0c0;">&gt;_</div><span>Terminal</span></div>
+        <div class="icon" id="calc-icon" onclick="openWin('calc-win')"><div class="nav-css" style="background:#c0c0c0; font-family:sans-serif; font-style:normal; font-size:14px; text-shadow:none; color:#000; display:flex; align-items:center; justify-content:center; border:2px solid #000080; border-radius: 4px; font-weight: bold;">+/-</div><span>Calculadora</span></div>
+        <!-- Ventana: Archivador -->
+        <div class="window" id="arch-win">
+            <div class="window-title">
+                <span>Minguelasgo Archivator</span>
+                <div class="win-controls">
+                    <div class="win-btn" onclick="minimizeWin('arch-win')">_</div>
+                    <div class="win-btn" onclick="maximizeWin('arch-win')">🗖</div>
+                    <div class="win-btn" onclick="closeWin('arch-win')">X</div>
+                </div>
+            </div>
+            <div class="window-body">
+                <div>Ruta: C:\Archivador</div>
+                <hr style="margin:8px 0; border:0; border-top:1px solid #808080;">
+                <ul class="file-list">
+                    <li class="file-item"><div class="mini-folder-css"></div><span>Documentos_Secretos</span></li>
+                    <li class="file-item"><div class="mini-folder-css"></div><span>Proyectos_Propios</span></li>
+                </ul>
             </div>
         </div>
-        <iframe src="terminal.html" style="width: 100%; height: calc(100% - 22px); border: none; background: #0c0c0c;"></iframe>
+
+        <!-- Ventana: Bloc de Notas -->
+        <div class="window" id="notepad-win">
+            <div class="window-title">
+                <span>Bloc de notas - Notas.txt</span>
+                <div class="win-controls">
+                    <div class="win-btn" onclick="minimizeWin('notepad-win')">_</div>
+                    <div class="win-btn" onclick="maximizeWin('notepad-win')">🗖</div>
+                    <div class="win-btn" onclick="closeWin('notepad-win')">X</div>
+                </div>
+            </div>
+            <div class="window-body" style="padding:2px;">
+                <textarea class="notepad-textarea" id="note-text" placeholder="Escribe tus notas aquí..."></textarea>
+            </div>
+        </div>
+
+        <!-- Ventana: Minguelsgo Nav -->
+        <div class="window" id="m-nav-win">
+            <div class="window-title">
+                <span>Minguelsgo Nav</span>
+                <div class="win-controls">
+                    <div class="win-btn" onclick="minimizeWin('m-nav-win')">_</div>
+                    <div class="win-btn" onclick="maximizeWin('m-nav-win')">🗖</div>
+                    <div class="win-btn" onclick="closeWin('m-nav-win')">X</div>
+                </div>
+            </div>
+            <div class="window-body" style="padding:0;">
+                <iframe class="iframe-nav" src="nav.html"></iframe>
+            </div>
+        </div>
+
+        <!-- Ventana: Paint -->
+        <div class="window" id="paint-win">
+            <div class="window-title">
+                <span>Paint</span>
+                <div class="win-controls">
+                    <div class="win-btn" onclick="minimizeWin('paint-win')">_</div>
+                    <div class="win-btn" onclick="maximizeWin('paint-win')">🗖</div>
+                    <div class="win-btn" onclick="closeWin('paint-win')">X</div>
+                </div>
+            </div>
+            <div class="window-body" style="padding:5px;">
+                <iframe class="iframe-nav" src="paint.html"></iframe>
+            </div>
+        </div>
+        <!-- Ventana: Contenedor del Juego -->
+        <div class="window" id="game-win">
+            <div class="window-title">
+                <span>The Sims Life</span>
+                <div class="win-controls">
+                    <div class="win-btn" onclick="minimizeWin('game-win')">_</div>
+                    <div class="win-btn" onclick="maximizeWin('game-win')">🗖</div>
+                    <div class="win-btn" onclick="closeWin('game-win')">X</div>
+                </div>
+            </div>
+            <div class="window-body" style="padding:0;">
+                <iframe class="iframe-nav" src="LosMins.html"></iframe>
+            </div>
+        </div>
+        <!-- Ventana: Terminal -->
+        <div class="window" id="term-win" style="position: absolute; width: 520px; height: 340px; display: none;">
+            <div class="window-title">
+                <span>Terminal de Comandos MS-DOS</span>
+                <div class="win-controls">
+                    <div class="win-btn" onclick="minimizeWin('term-win')">_</div>
+                    <div class="win-btn" onclick="maximizeWin('term-win')">🗖</div>
+                    <div class="win-btn" onclick="closeWin('term-win')">X</div>
+                </div>
+            </div>
+            <iframe src="terminal.html" style="width: 100%; height: calc(100% - 22px); border: none; background: #0c0c0c;"></iframe>
+        </div>
     </div>
-</div>
-
-<script>
-    function openWin(id) {
-        const win = document.getElementById(id);
-        if (win) {
-            win.style.display = "block";
-            win.style.zIndex = "100"; 
+            <!-- Ventana: Calculadora -->
+        <div class="window" id="calc-win" style="position: absolute; top: 140px; left: 220px; width: 260px; height: 320px; display: none;">
+            <div class="window-title">
+                <span>Calculadora</span>
+                <div class="win-controls">
+                    <div class="win-btn" onclick="minimizeWin('calc-win')">_</div>
+                    <div class="win-btn" onclick="maximizeWin('calc-win')">🗖</div>
+                    <div class="win-btn" onclick="closeWin('calc-win')">X</div>
+                </div>
+            </div>
+            <iframe src="calc.html" style="width: 100%; height: calc(100% - 22px); border: none; background: #c0c0c0;"></iframe>
+        </div>
+      </div>
+    <!-- Barra de Tareas -->
+    <div id="taskbar">
+        <button id="start-btn">Inicio</button>
+        <div id="clock">12:00 PM</div>
+    </div>
+    <!-- Lógica de control de Mini OS 95 -->
+    <script>
+        let highestZIndex = 20;
+        // Función para enlazar el click de los iconos con sus ventanas correspondientes
+        function setupIcon(iconId, winId) {
+            const iconEl = document.getElementById(iconId);
+            if (iconEl) {
+                iconEl.addEventListener('click', () => {
+                    const win = document.getElementById(winId);
+                    if (win) {
+                        win.style.display = 'flex';
+                        win.style.zIndex = ++highestZIndex;
+                    }
+                });
+            }
         }
-    }
-
-    function closeWin(id) {
-        const win = document.getElementById(id);
-        if (win) {
-            win.style.display = "none";
+        // Activación y enlazado correcto de todas las aplicaciones
+        setupIcon('f-icon', 'arch-win');
+        setupIcon('n-icon', 'notepad-win');
+        setupIcon('nav-icon', 'm-nav-win');
+        setupIcon('paint-icon', 'paint-win');
+        setupIcon('game-icon', 'game-win');
+        setupIcon('terminal-icon', 'term-win');
+        // Funciones básicas para los botones de las ventanas
+        function closeWin(id) { 
+            document.getElementById(id).style.display = 'none'; 
         }
-    }
-
-    function minimizeWin(id) {
-        const win = document.getElementById(id);
-        if (win) {
-            win.style.display = "none";
+        function minimizeWin(id) { 
+            document.getElementById(id).style.display = 'none'; 
         }
-    }
-</script>
+        function maximizeWin(id) { 
+            document.getElementById(id).classList.toggle('maximized'); 
+        }
 
+        // Validación de la pantalla de login
+        document.getElementById('log-btn').addEventListener('click', () => {
+            if (document.getElementById('pass-in').value === '1234') {
+                document.getElementById('login-screen').style.display = 'none';
+            }
+        });
+        // Loop para mantener el reloj actualizado cada segundo
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }, 1000);
+    </script>
 </body>
 </html>
