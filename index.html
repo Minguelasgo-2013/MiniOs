@@ -1,417 +1,160 @@
-body { 
-    background-color: #0c0c0c; 
-    color: #00ff00; 
-    font-family: 'Courier New', Courier, monospace; 
-    font-size: 16px; 
-    margin: 0; 
-    padding: 20px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-    box-sizing: border-box; 
-    overflow: hidden; 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
 }
-.terminal-window { 
-    width: 100%; 
-    max-width: 900px; 
-    height: 80vh; 
-    background-color: #151515; 
-    border: 1px solid #333; 
-    border-radius: 6px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.7); 
-    display: flex; 
-    flex-direction: column; 
+body {
+    background: #008080;
+    font-family: sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
 }
-.terminal-header { 
-    background-color: #222; 
-    padding: 10px; 
-    display: flex; 
-    align-items: center; 
-    border-bottom: 1px solid #333; 
-    border-top-left-radius: 5px; 
-    border-top-right-radius: 5px; 
+.desktop {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    height: calc(100vh - 40px);
 }
-.buttons { 
-    display: flex; 
-    gap: 8px; 
+.icon {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    font-size: 12px;
+    text-shadow: 1px 1px 1px #000;
 }
-.button { 
-    width: 12px; 
-    height: 12px; 
-    border-radius: 50%; 
+.icon img, .icon .folder-css, .icon .nav-css {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 5px;
 }
-.close { 
-    background-color: #ff5f56; 
+.folder-css {
+    background: #ffd700;
+    border-radius: 2px;
+    border: 1px solid #b8860b;
 }
-.minimize { 
-    background-color: #ffbd2e; 
+.window {
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+    z-index: 10;
 }
-.maximize { 
-    background-color: #27c93f; 
-}
-.title { 
-    color: #bbb; 
-    margin: 0 auto; 
-    font-size: 14px; 
-    font-family: sans-serif; 
-}
-.terminal-body { 
-    flex: 1; 
-    padding: 15px; 
-    overflow-y: auto; 
-    white-space: pre-wrap; 
-    line-height: 1.4; 
-}
-.input-line { 
-    display: flex; 
-    align-items: center; 
-    margin-top: 5px; 
-    padding: 0 15px 15px 15px; 
-}
-.prompt { 
-    color: #5af78e; 
-    font-weight: bold; 
-    margin-right: 10px; 
-    white-space: nowrap; 
-}
-.path { 
-    color: #57c7ff; 
-}
-.input-container { 
-    position: relative; 
-    flex: 1; 
-    display: flex; 
-    align-items: center; 
-}
-#cmd-input { 
-    background: transparent; 
-    border: none; 
-    color: transparent; 
-    font-family: inherit; 
-    font-size: inherit; 
-    outline: none; 
-    width: 100%; 
-    position: absolute; 
-    left: 0; 
-    top: 0; 
-            z-index: 2; 
-    caret-color: transparent; 
-}
-#visual-text { 
-    color: #f1f1f1; 
-    white-space: pre-wrap; 
-    z-index: 1; 
-}
-.cursor { 
-    display: inline-block; 
-    width: 10px; 
-    height: 18px; 
-    background-color: #f1f1f1; 
-    animation: blink 0.8s infinite; 
-    margin-left: 1px; 
-    vertical-align: middle; 
-}
-@keyframes blink { 
-    0%, 49% { background-color: #f1f1f1; } 
-    50%, 100% { background-color: transparent; } 
-}
-.error { 
-    color: #ff5555; 
-}
-.success { 
-    color: #5af78e; 
-}
-.info { 
-    color: #9aedfe; 
-}
-.directory {
-    color: #57c7ff;
+.window-title {
+    background: #000080;
+    color: #fff;
+    padding: 4px 8px;
     font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-<div class="terminal-window" onclick="focusInput()">
-    <div class="terminal-header">
-        <div class="buttons">
-            <div class="button close"></div>
-            <div class="button minimize"></div>
-            <div class="button maximize"></div>
-        </div>
-        <div class="title">guest@linux-terminal:~</div>
+.win-controls {
+    display: flex;
+    gap: 4px;
+}
+.win-btn {
+    background: #c0c0c0;
+    color: #000;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.win-btn:active {
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+<div class="desktop">
+    <!-- Icono: Archivador -->
+    <div class="icon" id="f-icon" onclick="openWin('archivador-win')">
+        <div class="folder-css"></div>
+        <span>Archivador</span>
     </div>
-    
-    <div class="terminal-body" id="output">
-        <div>Bienvenido a la Terminal Interactiva v3.0</div>
-        <div>Escribe <span class="info">help</span> para ver los comandos disponibles.</div>
-        <br>
+
+    <!-- Icono: Minguelsgo Nav -->
+    <div class="icon" id="nav-icon" onclick="openWin('nav-win')">
+        <div class="nav-css" style="background:#000080; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; border-radius:4px;">M</div>
+        <span>Minguelsgo Nav</span>
     </div>
-    
-    <div class="input-line">
-        <span class="prompt">guest@sandbox:<span class="path" id="current-path">~</span>$</span>
-        <div class="input-container">
-            <span id="visual-text"></span>
-            <span class="cursor" id="terminal-cursor"></span>
-            <input type="text" id="cmd-input" autofocus autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+
+    <!-- Icono: Calculadora -->
+    <div class="icon" id="calc-icon" onclick="openWin('calc-win')">
+        <div class="nav-css" style="background:#c0c0c0; color:#000; display:flex; align-items:center; justify-content:center; border:2px solid #000080; border-radius:4px; font-weight:bold;">+/-</div>
+        <span>Calculadora</span>
+    </div>
+
+    <!-- Icono: Terminal de Comandos -->
+    <div class="icon" id="cmd-icon" onclick="openWin('cmd-win')">
+        <div class="nav-css" style="background:#000; color:#00ff00; display:flex; align-items:center; justify-content:center; border:1px solid #fff; font-family:monospace; font-size:11px; font-weight:bold;">&gt;_</div>
+        <span>Terminal</span>
+    </div>
+
+    <!-- Ventana Inalámbrica: Calculadora -->
+    <div class="window" id="calc-win" style="position: absolute; top: 140px; left: 220px; width: 260px; height: 320px; display: none;">
+        <div class="window-title">
+            <span>Calculadora</span>
+            <div class="win-controls">
+                <div class="win-btn" onclick="closeWin('calc-win')">X</div>
+            </div>
         </div>
+        <iframe src="calc.html" style="width: 100%; height: calc(100% - 22px); border: none; background: #c0c0c0;"></iframe>
+    </div>
+
+    <!-- Ventana Inalámbrica: Terminal ACTUALIZADA -->
+    <div class="window" id="cmd-win" style="position: absolute; top: 80px; left: 100px; width: 650px; height: 420px; display: none;">
+        <div class="window-title">
+            <span>Terminal de Comandos MS-DOS</span>
+            <div class="win-controls">
+                <div class="win-btn" onclick="closeWin('cmd-win')">X</div>
+            </div>
+        </div>
+        <!-- UNIÓN INALÁMBRICA PERFECTA -->
+        <iframe src="terminal.html" style="width: 100%; height: calc(100% - 22px); border: none; background: #0c0c0c;"></iframe>
     </div>
 </div>
-const output = document.getElementById('output');
-const cmdInput = document.getElementById('cmd-input');
-const visualText = document.getElementById('visual-text');
-const terminalBody = document.querySelector('.terminal-body');
-const currentPathSpan = document.getElementById('current-path');
-
-const fileSystem = {
-    'root': {
-        'readme.txt': 'Simulación de terminal ultra realista hecha con HTML, CSS y JS.\n¡Puedes ejecutar códigos aquí!',
-        'contacto.txt': 'Email: contacto@ejemplo.com\nGithub: https://github.com',
-        'proyectos.txt': '- Terminal interactiva [Completado]\n- Bot de IA Inteligente [En desarrollo]',
-        'documentos': {}
+// Función para abrir ventanas con soporte de zIndex básico
+function openWin(id) {
+    const win = document.getElementById(id);
+    if (win) {
+        win.style.display = "block";
+        // Trae la ventana seleccionada al frente
+        win.style.zIndex = "100"; 
     }
-};
-
-let currentDir = fileSystem['root'];
-let currentDirName = '~';
-let commandHistory = [];
-let historyIndex = -1;
-
-cmdInput.addEventListener('input', () => { 
-    visualText.textContent = cmdInput.value; 
-});
-
-function focusInput() { 
-    cmdInput.focus(); 
 }
 
-cmdInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-        const command = cmdInput.value.trim();
-        
-        if (command !== '') { 
-            commandHistory.push(command); 
-            historyIndex = commandHistory.length; 
-        }
-        
-        printLine(`guest@sandbox:${currentDirName}$ ${command}`, '');
-        executeCommand(command);
-        
-        cmdInput.value = ''; 
-        visualText.textContent = '';
-        terminalBody.scrollTop = terminalBody.scrollHeight;
-    } 
-    else if (e.key === 'ArrowUp' && commandHistory.length > 0 && historyIndex > 0) {
-        historyIndex--; 
-        cmdInput.value = commandHistory[historyIndex]; 
-        visualText.textContent = cmdInput.value; 
-        e.preventDefault();
-    } 
-    else if (e.key === 'ArrowDown') {
-        if (historyIndex < commandHistory.length - 1) { 
-            historyIndex++; 
-            cmdInput.value = commandHistory[historyIndex]; 
-            visualText.textContent = cmdInput.value; 
-        } else { 
-            historyIndex = commandHistory.length; 
-            cmdInput.value = ''; 
-            visualText.textContent = ''; 
-        }
-        e.preventDefault();
+// Función para cerrar ventanas de forma limpia
+function closeWin(id) {
+    const win = document.getElementById(id);
+    if (win) {
+        win.style.display = "none";
     }
-});
-
-function printLine(text, className = '') {
-    const div = document.createElement('div');
-    div.textContent = text;
-    
-    if (className) {
-        div.classList.add(className);
-    }
-    
-    output.appendChild(div);
 }
 
-function executeCommand(cmdStr) {
-    const parts = cmdStr.split(' '); 
-    const command = parts[0].toLowerCase(); 
-    const arg = parts.slice(1).join(' ').trim();
-    
-    switch (command) {
-        case '': 
-            break;
-            
-        case 'help':
-            printLine('Comandos disponibles:', 'info');
-            printLine('  help          - Muestra este menú.');
-            printLine('  ls            - Lista archivos y carpetas actuales.');
-            printLine('  cat [archivo] - Lee un archivo de texto.');
-            printLine('  touch [arch]  - Crea un nuevo archivo de texto vacío.');
-            printLine('  mkdir [carp]  - Crea una nueva carpeta.');
-            printLine('  cd [carp/..]  - Cambia de directorio.');
-            printLine('  rm [archivo]  - Elimina un archivo o carpeta.');
-            printLine('  clear         - Limpia la pantalla.');
-            printLine('  whoami        - Muestra el usuario actual.');
-            printLine('  date          - Muestra fecha y hora.');
-            printLine('  uname         - Información del sistema.');
-            printLine('  echo [texto]  - Repite el texto escrito.');
-            printLine('  matrix        - Activa el modo hacker con cascada binaria.');
-            printLine('  sudo          - Intenta ejecutar comandos como administrador.');
-            printLine('  ping [url]    - Envía paquetes de prueba a una web.');
-            printLine('  history       - Muestra el historial de comandos usados.');
-            break;
-            
-        case 'ls': 
-            const items = Object.keys(currentDir);
-            
-            if (items.length === 0) {
-                printLine('(directorio vacío)');
-            } else {
-                items.forEach(item => {
-                    if (typeof currentDir[item] === 'object') {
-                        printLine(item + '/', 'directory');
-                    } else {
-                        printLine(item, 'success');
-                    }
-                });
-            }
-            break;
-            
-        case 'cat':
-            if (!arg) {
-                printLine('Error: Especifica archivo. Ej: cat readme.txt', 'error');
-            } else if (currentDir[arg] !== undefined && typeof currentDir[arg] !== 'object') {
-                printLine(currentDir[arg]);
-            } else if (typeof currentDir[arg] === 'object') {
-                printLine(`cat: ${arg}: Es un directorio.`, 'error');
-            } else {
-                printLine(`cat: ${arg}: No se encontró el archivo.`, 'error');
-            }
-            break;
-            
-        case 'touch':
-            if (!arg) {
-                printLine('Error: Especifica el nombre del archivo. Ej: touch nota.txt', 'error');
-            } else if (currentDir[arg]) {
-                printLine(`Error: El elemento '${arg}' ya existe.`, 'error');
-            } else {
-                currentDir[arg] = 'Archivo de texto vacío creado con touch.';
-                printLine(`Archivo '${arg}' creado con éxito.`, 'success');
-            }
-            break;
-
-        case 'mkdir':
-            if (!arg) {
-                printLine('Error: Especifica el nombre de la carpeta. Ej: mkdir fotos', 'error');
-            } else if (currentDir[arg]) {
-                printLine(`Error: El elemento '${arg}' ya existe.`, 'error');
-            } else {
-                currentDir[arg] = {};
-                printLine(`Carpeta '${arg}' creada con éxito.`, 'success');
-            }
-            break;
-
-        case 'cd':
-            if (!arg || arg === '~') {
-                currentDir = fileSystem['root'];
-                currentDirName = '~';
-                if(currentPathSpan) currentPathSpan.textContent = '~';
-            } else if (arg === '..') {
-                currentDir = fileSystem['root'];
-                currentDirName = '~';
-                if(currentPathSpan) currentPathSpan.textContent = '~';
-            } else if (currentDir[arg] && typeof currentDir[arg] === 'object') {
-                currentDir = currentDir[arg];
-                currentDirName = `~/${arg}`;
-                if(currentPathSpan) currentPathSpan.textContent = currentDirName;
-            } else {
-                printLine(`bash: cd: ${arg}: No es un directorio o no existe.`, 'error');
-            }
-            break;
-
-        case 'rm':
-            if (!arg) {
-                printLine('Error: ¿Qué elemento deseas borrar?', 'error');
-            } else if (currentDir[arg] !== undefined) {
-                delete currentDir[arg];
-                printLine(`'${arg}' eliminado correctamente del sistema.`, 'success');
-            } else {
-                printLine(`rm: no se pudo borrar '${arg}': El archivo o carpeta no existe.`, 'error');
-            }
-            break;
-
-        case 'clear': 
-            output.innerHTML = ''; 
-            break;
-            
-        case 'whoami': 
-            printLine('guest_user_sandbox'); 
-            break;
-            
-        case 'date': 
-            printLine(new Date().toString()); 
-            break;
-            
-        case 'uname': 
-            printLine('Linux sandbox-env 5.4.0-96-generic x86_64 GNU/Linux'); 
-            break;
-            
-        case 'echo': 
-            printLine(arg); 
-            break;
-            
-        case 'matrix':
-            printLine('Iniciando decodificación de la red...', 'success');
-            let count = 0;
-            
-            const interval = setInterval(() => {
-                let binaryLine = '';
-                
-                for (let i = 0; i < 8; i++) {
-                    binaryLine += Math.round(Math.random()) + ' ' + Math.floor(Math.random() * 9) + ' ';
-                }
-                
-                printLine(binaryLine, 'success');
-                terminalBody.scrollTop = terminalBody.scrollHeight;
-                count++;
-                
-                if (count > 20) {
-                    clearInterval(interval);
-                }
-            }, 100);
-            break;
-            
-        case 'sudo':
-            printLine('guest no está en el archivo de sudoers. Este incidente será reportado.', 'error');
-            break;
-            
-        case 'ping':
-            if (!arg) {
-                printLine('Uso: ping [dirección web u IP]', 'error');
-            } else {
-                printLine(`Haciendo PING a ${arg} con 32 bytes de datos:`);
-                let pings = 0;
-                
-                const pingInt = setInterval(() => {
-                    printLine(`Respuesta desde ${arg}: bytes=32 tiempo=${Math.floor(Math.random() * 50) + 5}ms TTL=54`);
-                    terminalBody.scrollTop = terminalBody.scrollHeight;
-                    pings++;
-                    
-                    if (pings >= 4) {
-                        clearInterval(pingInt);
-                    }
-                }, 300);
-            }
-            break;
-            
-        case 'history':
-            if (commandHistory.length === 0) {
-                printLine('Historial vacío.');
-            } else {
-                commandHistory.forEach((c, index) => {
-                    printLine(`  ${index + 1}  ${c}`);
-                });
-            }
-            break;
-            
-        default: 
-            printLine(`bash: ${command}: comando no encontrado. Escribe 'help'.`, 'error');
+// Funciones opcionales para maximizar y minimizar
+function minimizeWin(id) {
+    const win = document.getElementById(id);
+    if (win) {
+        win.style.display = "none";
     }
 }
