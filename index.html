@@ -320,20 +320,18 @@
 </head>
 <body>
     <!-- Pantalla de Login -->
-    <div id="login-screen">
-        <div class="login-card">
-            <div class="window-title"><span>Inicio de Sesión</span></div>
-            <div class="login-content">
-                <div class="user-avatar-box"></div>
-                <div class="login-form-group">
-                    <label>Usuario: <strong>Usuario</strong></label>
-                    <label for="pass-in">Contraseña:</label>
-                    <input type="password" id="pass-in" value="1234" autofocus>
-                    <button type="button" id="log-btn">Aceptar</button>
-                </div>
+    <div class="login-form-group">
+    <label><strong>Usuario:</strong></label>
+    <!-- Añadimos este input para que puedan escribir el usuario personalizado -->
+    <input type="text" id="user-in" placeholder="Nombre de usuario" autofocus style="margin-bottom: 8px; width: 100%;">
+    
+    <label for="pass-in"><strong>Contraseña:</strong></label>
+    <input type="password" id="pass-in" placeholder="Contraseña">
+    
+    <!-- Al hacer clic, llamará a la función del servidor que comprobará los datos -->
+    <button type="button" id="log-btn" onclick="loginConServidor()">Aceptar</button>
+             </div>
             </div>
-        </div>
-    </div>
     <!-- Escritorio -->
     <div id="desktop">
         <div class="icon" id="f-icon"><div class="folder-css"></div><span>Archivador</span></div>
@@ -498,5 +496,63 @@
             document.getElementById('clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }, 1000);
     </script>
+    <script>
+// Configuración real de tu Servidor en JSONBin
+const BIN_ID = "6a2c204bda38895dfeb576ea"; 
+const MASTER_KEY = "$2a$10$M6EaygIJjTrkygJbaLI4VuKM2dFLPy4ewvdO.0GgVaPmZxc73pxia"; 
+
+// Función para descargar los usuarios de la nube
+async function obtenerUsuariosDelServidor() {
+    try {
+        const respuesta = await fetch(`https://jsonbin.io{BIN_ID}/latest`, {
+            method: 'GET',
+            headers: { 'X-Master-Key': MASTER_KEY }
+        });
+        const datos = await respuesta.json();
+        return datos.record;
+    } catch (error) {
+        console.error("Error de conexión:", error);
+        return [];
+    }
+}
+
+// Función conectada a tu botón "Aceptar"
+async function loginConServidor() {
+    // Capturamos lo que el usuario escribió en tus inputs de la pantalla de login
+    const usuarioIngresado = document.getElementById('user-in').value.trim();
+    const contraIngresada = document.getElementById('pass-in').value.trim();
+
+    if (!usuarioIngresado || !contraIngresada) {
+        alert("Por favor, introduce usuario y contraseña.");
+        return;
+    }
+
+    // Cambiamos el texto del botón temporalmente para que sepa que está cargando
+    const boton = document.getElementById('log-btn');
+    boton.innerText = "Conectando...";
+    boton.disabled = true;
+
+    // Traemos la lista de usuarios del servidor
+    let listaUsuarios = await obtenerUsuariosDelServidor();
+
+    // Restauramos el botón
+    boton.innerText = "Aceptar";
+    boton.disabled = false;
+
+    // Buscamos si existe la combinación en tu base de datos
+    const usuarioValido = listaUsuarios.find(u => u.nombre === usuarioIngresado && u.contrasena === contraIngresada);
+
+    if (usuarioValido) {
+        alert(`¡Acceso concedido! Bienvenido, ${usuarioIngresado}`);
+        
+        // Ocultamos tu pantalla de login para entrar al MiniOS
+        document.getElementById('login-screen').style.display = 'none';
+        
+        // NOTA: Si tienes una función en tu JS viejo para iniciar el escritorio (ej. iniciarSistema()), llámala aquí abajo.
+    } else {
+        alert("Usuario o contraseña incorrectos en el servidor.");
+    }
+}
+</script>
 </body>
 </html>
